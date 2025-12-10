@@ -1,15 +1,16 @@
 import Navbar from "../components/Navbar";
+import About from "../components/About";
 
 export default function Home() {
   return (
-    <main className="bg-[#454343] text-white min-h-screen">
-      {/* Navbar */}
+    <main className="bg-[#0f1214] text-white min-h-screen">
+      {/* NAVBAR */}
       <Navbar />
 
-      {/* Content area spacing below navbar */}
-      <div className="pt-28 px-10">
-        <h1 className="text-2xl font-semibold">Test Area</h1>
-        <p className="text-gray-300 mt-2">Background correctly applied.</p>
+      {/* CONTENT */}
+      <div className="pt-28">
+        {/* ABOUT SECTION */}
+        <About />
       </div>
     </main>
   );
