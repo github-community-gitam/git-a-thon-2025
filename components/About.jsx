@@ -2,16 +2,6 @@ export default function HackathonAboutSection() {
   return (
     <section className="bg-[#0f1214] text-gray-200 py-16">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Top buttons */}
-        <div className="flex justify-center gap-6 mb-10">
-          <button className="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg px-6 py-3 shadow-md">
-            Register Your Team
-          </button>
-          <button className="border border-green-600 text-green-300 hover:text-white hover:bg-green-700/10 rounded-lg px-6 py-3 font-medium">
-            View Problem Statements
-          </button>
-        </div>
-
         {/* Heading + intro */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4">
@@ -54,7 +44,6 @@ export default function HackathonAboutSection() {
                   </span>
                 </div>
               </li>
-
               <li className="flex items-start gap-3">
                 <img
                   src="/icons/Group.svg"
@@ -63,7 +52,6 @@ export default function HackathonAboutSection() {
                 />
                 <div className="text-sm">Free Registration</div>
               </li>
-
               <li className="flex items-start gap-3">
                 <img
                   src="/icons/Gifts.svg"
@@ -72,7 +60,6 @@ export default function HackathonAboutSection() {
                 />
                 <div className="text-sm">Goodies and exciting prizes</div>
               </li>
-
               <li className="flex items-start gap-3">
                 <img
                   src="/icons/Task alt.svg"
@@ -98,13 +85,12 @@ export default function HackathonAboutSection() {
             <ul className="space-y-3 text-gray-300">
               <li className="flex gap-3">
                 <img
-                  src="/icons/Task alt.svg" // or another check icon
+                  src="/icons/Task alt.svg"
                   alt=""
                   className="w-5 h-5 mt-1 shrink-0"
                 />
                 <div className="text-sm">Meals and refreshments throughout</div>
               </li>
-
               <li className="flex gap-3">
                 <img
                   src="/icons/Task alt.svg"
@@ -115,7 +101,6 @@ export default function HackathonAboutSection() {
                   24 hours of non-stop coding and innovation
                 </div>
               </li>
-
               <li className="flex gap-3">
                 <img
                   src="/icons/Task alt.svg"
@@ -124,7 +109,6 @@ export default function HackathonAboutSection() {
                 />
                 <div className="text-sm">Mentorship from industry experts</div>
               </li>
-
               <li className="flex gap-3">
                 <img
                   src="/icons/Task alt.svg"
