@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import About from "../components/About";
+import ProbStmts from "../components/ProbStmts";
 
 export default function Home() {
   return (
@@ -9,8 +10,8 @@ export default function Home() {
 
       {/* CONTENT */}
       <div className="pt-28">
-        {/* ABOUT SECTION */}
         <About />
+        <ProbStmts />
       </div>
     </main>
   );
