@@ -16,7 +16,7 @@ function ProbStmts() {
             <p className='text-gray-400 text-md mb-6 leading-relaxed'>
               Build a comprehensive platform for students and staff to report, track, and resolve campus issues efficiently.
             </p>
-            <button onClick={() => window.location.href = "https://youtube.com"}   className='w-full py-2.5 px-4 bg-transparent border border-blue-500 text-blue-400 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 font-medium flex items-center justify-center gap-2'>
+            <button className='w-full py-2.5 px-4 bg-transparent border border-blue-500 text-blue-400 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 font-medium flex items-center justify-center gap-2'>
               View Details
               <span className='text-lg'>&#10140;</span>
             </button>
