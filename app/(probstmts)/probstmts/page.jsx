@@ -2,9 +2,8 @@
 
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
 
-export default function ProbStmts() {
+export default function ProbStmtsPage() {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const cards = [
@@ -92,6 +91,133 @@ export default function ProbStmts() {
   evaluationCriteria:
     "Queue reduction percentage, vendor satisfaction, and order accuracy.",
 },
+{
+  id: 7,
+  title: "Eco-Friendly Campus Energy Monitoring Dashboard",
+  overview:
+    "Build a real-time energy monitoring system that tracks electricity usage across buildings, identifies wastage patterns, and visualizes trends for university administrators.",
+  userPerspective:
+    "As a campus sustainability officer, I want to analyze energy data so I can propose initiatives to reduce waste.",
+  deliverables:
+    "Energy monitoring dashboards, trend analysis charts, automated alerts for abnormal consumption, and a reporting module.",
+  constraints:
+    "Data ingestion frequency must be optimized to avoid unnecessary server load.",
+  evaluationCriteria:
+    "Data accuracy, dashboard clarity, and actionable insights discovered.",
+},
+{
+  id: 8,
+  title: "Campus Event Discovery & Participation App",
+  overview:
+    "Develop a platform where students can discover events, register, join waitlists, receive reminders, and track event attendance.",
+  userPerspective:
+    "As a student, I want to easily find events relevant to my interests and register in one click.",
+  deliverables:
+    "Event boards, registration workflows, personalized recommendations, and event analytics.",
+  constraints:
+    "Must handle concurrent registrations and prevent double booking.",
+  evaluationCriteria:
+    "Engagement rate, retention, and event attendance improvement.",
+},
+{
+  id: 9,
+  title: "Smart Bus Tracking & Route Optimization",
+  overview:
+    "Create a system that tracks campus buses in real-time, predicts arrival times, and optimizes routes based on traffic patterns.",
+  userPerspective:
+    "As a commuter, I want accurate arrival times so I can plan my commute without waiting for long.",
+  deliverables:
+    "GPS-based bus tracking, ETA prediction engine, driver dashboard, and route management tools.",
+  constraints:
+    "GPS data refresh rates must be efficient and not drain mobile battery.",
+  evaluationCriteria:
+    "Prediction accuracy, reduced wait time, and improved route efficiency.",
+},
+{
+  id: 10,
+  title: "Smart Timetable & Schedule Conflict Detector",
+  overview:
+    "Build a smart timetable generator that automatically resolves class collisions, lab overlaps, and room availability conflicts.",
+  userPerspective:
+    "As an academic coordinator, I want an automated system so I don't spend hours resolving timetable issues.",
+  deliverables:
+    "Timetable generation engine, conflict detection system, teacher availability module, and student view portal.",
+  constraints:
+    "Algorithm must be efficient, especially for large batches and multiple departments.",
+  evaluationCriteria:
+    "Conflict resolution accuracy, algorithm performance, and timetable clarity.",
+},
+{
+  id: 11,
+  title: "Placement Preparation & Mock Interview Portal",
+  overview:
+    "Develop a platform that provides customized learning paths, coding assessments, mock interviews, and AI-based resume analysis.",
+  userPerspective:
+    "As a placement aspirant, I want guided preparation so I can focus on improving my weak areas.",
+  deliverables:
+    "Learning modules, mock interview simulator, resume scoring engine, and personalized progress tracking.",
+  constraints:
+    "AI feedback must be meaningful and not generic or repetitive.",
+  evaluationCriteria:
+    "Accuracy of feedback, improvement metrics, and student engagement.",
+},
+{
+  id: 12,
+  title: "Lost & Found Automation System",
+  overview:
+    "Build a simple platform where users can report lost or found items with photo evidence, location details, and contact preferences.",
+  userPerspective:
+    "As a student, I want a quick way to report lost items and find matching recovered items.",
+  deliverables:
+    "Lost-found item catalog, matching algorithm, photo upload system, and moderation dashboard.",
+  constraints:
+    "Duplicate item reports must be detected and merged automatically.",
+  evaluationCriteria:
+    "Match accuracy, reporting speed, and user satisfaction.",
+},
+{
+  id: 13,
+  title: "Smart Lab Equipment Reservation System",
+  overview:
+    "Create an equipment scheduling system that avoids double bookings, tracks usage history, and enforces time limits.",
+  userPerspective:
+    "As a student, I want to reserve lab equipment in advance so I can complete my experiments without delays.",
+  deliverables:
+    "Reservation calendar, booking restrictions, admin controls, and usage analytics.",
+  constraints:
+    "Must prevent overlapping reservations and ensure identity verification.",
+  evaluationCriteria:
+    "Booking efficiency, reduced conflicts, and resource utilization.",
+},
+{
+  id: 14,
+  title: "Campus Health Center Appointment & Records System",
+  overview:
+    "Build a digital appointment scheduler for the campus health center that stores visit history, prescriptions, and follow-up reminders.",
+  userPerspective:
+    "As a student, I want quick access to medical help without waiting in long queues.",
+  deliverables:
+    "Appointment booking, doctor portal, health records system, and automated follow-up reminders.",
+  constraints:
+    "Sensitive health data must follow strict security and encryption standards.",
+  evaluationCriteria:
+    "Reduced wait times, improvement in follow-ups, and system reliability.",
+},
+{
+  id: 15,
+  title: "AI Study Companion & Note Summarizer",
+  overview:
+    "Create an AI-powered assistant that summarizes lectures, generates flashcards, and helps students revise efficiently using their uploaded notes.",
+  userPerspective:
+    "As a student, I want quick summaries and revision aids so I can study smarter and retain more.",
+  deliverables:
+    "Note summarizer, flashcard generator, progress tracker, and personalized study recommendations.",
+  constraints:
+    "Summaries must be context-aware and avoid hallucinations or incorrect facts.",
+  evaluationCriteria:
+    "Summary accuracy, student performance improvements, and long-term engagement.",
+}
+
   ];
   return (
     <div>
@@ -238,32 +364,8 @@ export default function ProbStmts() {
               </div>
             </>
           )}
-          
-        </div>
-
-        {/* See More Button */}
-        <div className="mt-10 flex justify-center">
-          <Link href="/probstmts" aria-label="See more problem statements">
-            <button className="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-600 text-slate-200 hover:bg-slate-800 hover:text-white rounded-lg transition-all duration-150">
-              See More
-              <svg
-                className="w-4 h-4 text-slate-200"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </Link>
         </div>
       </div>
     </div>
-    
   );
 }

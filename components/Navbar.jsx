@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-[#0f1214]">
@@ -17,15 +19,19 @@ export default function Navbar() {
 
         {/* RIGHT: NAV LINKS */}
         <ul className="flex items-center gap-10">
-          <li className="text-[#E6EDF3] text-[15px] font-inter font-medium hover:text-white cursor-pointer">
-            Home
-          </li>
+          <Link href="/">
+            <li className="text-[#E6EDF3] text-[15px] font-inter font-medium hover:text-white cursor-pointer">
+              Home
+            </li>
+          </Link>
           <li className="text-[#E6EDF3] text-[15px] font-inter font-medium hover:text-white cursor-pointer">
             Registration
           </li>
-          <li className="text-[#E6EDF3] text-[15px] font-inter font-medium hover:text-white cursor-pointer">
-            Problem Statements
-          </li>
+          <Link href="/probstmts">
+            <li className="text-[#E6EDF3] text-[15px] font-inter font-medium hover:text-white cursor-pointer">
+              Problem Statements
+            </li>
+          </Link>
         </ul>
       </div>
     </nav>
