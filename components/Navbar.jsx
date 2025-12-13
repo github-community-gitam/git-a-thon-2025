@@ -30,7 +30,7 @@ export default function Navbar() {
           >
             Home
           </Link>
-
+          {/* 
           <li className="text-[#E6EDF3] text-[15px] font-inter hover:text-white cursor-pointer cursor-target font-semibold p-1">
             Registration
           </li>
@@ -40,7 +40,7 @@ export default function Navbar() {
             className="text-[#E6EDF3] text-[15px] font-inter hover:text-white font-semibold cursor-target p-1"
           >
             Problem Statements
-          </Link>
+          </Link> */}
         </ul>
       </div>
     </nav>
