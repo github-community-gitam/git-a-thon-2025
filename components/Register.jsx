@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const API_URL = "http://localhost:5050/api/team/register";
 export default function Register() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -120,12 +121,31 @@ export default function Register() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Submitted", formData);
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Registration failed");
+    }
+
     setDirection(1);
     setIsSubmitted(true);
-  };
+  } catch (err) {
+    setError(err.message);
+  }
+};
+
 
   const handleReset = () => {
     setStep(0);
