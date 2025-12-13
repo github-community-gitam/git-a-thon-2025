@@ -30,7 +30,9 @@ export default function Countdown() {
       }
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const hours = Math.floor(
+        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
@@ -47,13 +49,15 @@ export default function Countdown() {
 
   return (
     <div className="mb-8 text-center">
-      <h3 className="text-xl md:text-2xl font-semibold mb-4">Hackathon starts in</h3>
+      <h3 className="text-xl md:text-2xl font-semibold mb-4">
+        Hackathon starts in
+      </h3>
 
       <div className="flex justify-center gap-4">
         {Object.entries(timeLeft).map(([label, value]) => (
           <div
             key={label}
-            className="bg-gray-800 w-20 h-20 md:w-24 md:h-24 rounded-lg flex flex-col items-center justify-center"
+            className="bg-gray-800 w-40 h-40 md:w-24 md:h-24 rounded-lg flex flex-col items-center justify-center"
           >
             <span className="text-2xl md:text-3xl font-bold text-blue-500">
               {value}
