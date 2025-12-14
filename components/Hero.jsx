@@ -45,7 +45,7 @@ export default function Hero() {
 
       {/* Countdown */}
       <div className="mb-12">
-        <Countdown targetDate="2025-01-15T00:00:00" />
+        <Countdown targetDate="2025-12-20T09:00:00+05:30" />
       </div>
 
       {/* Buttons */}
