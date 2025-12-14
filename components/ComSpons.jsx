@@ -2,7 +2,7 @@
 
 export default function CommunitiesSponsors() {
   const communities = [
-    { src: "/icons/Github.svg", alt: "GitHub" },
+    { src: "/icons/GitHub.svg", alt: "GitHub" },
     { src: "/icons/ACM.svg", alt: "ACM" },
     { src: "/icons/IEEE.svg", alt: "IEEE" },
     { src: "/icons/AWS.svg", alt: "AWS" },
