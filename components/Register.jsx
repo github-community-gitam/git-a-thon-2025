@@ -100,7 +100,6 @@ export default function Register() {
       setDirection(1);
       setIsSubmitted(true);
     } catch (err) {
-      console.error("Fetch error:", err);
       alert("Failed to reach server");
     }
   };
@@ -121,6 +120,58 @@ export default function Register() {
     }
   };
 
+  const renderCommonFields = (data, handleChange) => (
+    <div className="space-y-4">
+      <input
+        required
+        name="name"
+        value={data.name}
+        onChange={handleChange}
+        placeholder="Name"
+        className="w-full p-3 bg-black text-white border"
+      />
+      <input
+        required
+        name="email"
+        value={data.email}
+        onChange={handleChange}
+        placeholder="Email"
+        className="w-full p-3 bg-black text-white border"
+      />
+      <input
+        required
+        name="phone"
+        value={data.phone}
+        onChange={handleChange}
+        placeholder="Phone"
+        className="w-full p-3 bg-black text-white border"
+      />
+      <input
+        required
+        name="college"
+        value={data.college}
+        onChange={handleChange}
+        placeholder="College"
+        className="w-full p-3 bg-black text-white border"
+      />
+      <input
+        required
+        name="year"
+        value={data.year}
+        onChange={handleChange}
+        placeholder="Year"
+        className="w-full p-3 bg-black text-white border"
+      />
+      <input
+        name="github"
+        value={data.github}
+        onChange={handleChange}
+        placeholder="GitHub"
+        className="w-full p-3 bg-black text-white border"
+      />
+    </div>
+  );
+
   const totalSteps = formData.teamSize + 1;
 
   return (
@@ -134,7 +185,7 @@ export default function Register() {
               initial="enter"
               animate="center"
               exit="exit"
-              className="text-white text-center py-20"
+              className="text-center text-white py-20"
             >
               <h2 className="text-3xl font-bold">Registration Successful!</h2>
             </motion.div>
@@ -145,17 +196,17 @@ export default function Register() {
               initial="enter"
               animate="center"
               exit="exit"
-              className="space-y-8"
+              className="space-y-6"
             >
               {step === 0 && (
                 <>
                   <input
                     required
-                    placeholder="Team Name"
                     value={formData.teamName}
                     onChange={(e) =>
                       setFormData({ ...formData, teamName: e.target.value })
                     }
+                    placeholder="Team Name"
                     className="w-full p-3 bg-black text-white border"
                   />
 
@@ -169,21 +220,16 @@ export default function Register() {
                     <option value="3">3 Members</option>
                     <option value="4">4 Members</option>
                   </select>
+
+                  {renderCommonFields(formData.leader, handleLeaderChange)}
                 </>
               )}
 
-              {step > 0 && step < totalSteps - 1 && (
-                <input
-                  placeholder={`Member ${step} Name`}
-                  className="w-full p-3 bg-black text-white border"
-                  value={formData.members[step - 1]?.name || ""}
-                  onChange={(e) =>
-                    handleMemberChange(step - 1, {
-                      target: { name: "name", value: e.target.value },
-                    })
-                  }
-                />
-              )}
+              {step > 0 && step < totalSteps - 1 &&
+                renderCommonFields(
+                  formData.members[step - 1],
+                  (e) => handleMemberChange(step - 1, e)
+                )}
 
               <div className="flex gap-4">
                 {step > 0 && (
