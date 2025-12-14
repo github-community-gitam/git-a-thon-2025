@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-export default function Countdown() {
+export default function Countdown({ targetDate }) {
   const [timeLeft, setTimeLeft] = useState({
     Days: "00",
     Hours: "00",
@@ -11,8 +11,14 @@ export default function Countdown() {
   });
 
   useEffect(() => {
-    // Set countdown to 1 hour from now ON THE CLIENT
-    const target = Date.now() + 60 * 60 * 1000;
+    if (!targetDate) return;
+
+    const target = new Date(targetDate).getTime();
+
+    if (isNaN(target)) {
+      console.error("Invalid targetDate:", targetDate);
+      return;
+    }
 
     const timer = setInterval(() => {
       const now = Date.now();
@@ -33,19 +39,21 @@ export default function Countdown() {
       const hours = Math.floor(
         (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const minutes = Math.floor(
+        (diff % (1000 * 60 * 60)) / (1000 * 60)
+      );
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
       setTimeLeft({
-        Days: days.toString().padStart(2, "0"),
-        Hours: hours.toString().padStart(2, "0"),
-        Minutes: minutes.toString().padStart(2, "0"),
-        Seconds: seconds.toString().padStart(2, "0"),
+        Days: String(days).padStart(2, "0"),
+        Hours: String(hours).padStart(2, "0"),
+        Minutes: String(minutes).padStart(2, "0"),
+        Seconds: String(seconds).padStart(2, "0"),
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [targetDate]);
 
   return (
     <div className="mb-8 text-center">
@@ -57,7 +65,7 @@ export default function Countdown() {
         {Object.entries(timeLeft).map(([label, value]) => (
           <div
             key={label}
-            className="bg-gray-800 w-40 h-40 md:w-24 md:h-24 rounded-lg flex flex-col items-center justify-center"
+            className="bg-gray-800 w-20 h-20 md:w-24 md:h-24 rounded-lg flex flex-col items-center justify-center"
           >
             <span className="text-2xl md:text-3xl font-bold text-blue-500">
               {value}

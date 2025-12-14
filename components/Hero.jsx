@@ -56,10 +56,9 @@ export default function Hero() {
       </div>
 
       {/* Countdown */}
-      <div className="mb-3">
-        <Countdown targetDate="2025-01-15T00:00:00" />
+      <div className="mb-08">
+        <Countdown targetDate="2025-12-20T09:00:00+05:30" />
       </div>
-
       {/* CTA */}
       <div className="flex justify-center">
         <button
