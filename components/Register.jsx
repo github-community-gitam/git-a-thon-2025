@@ -122,72 +122,12 @@ export default function Register() {
 
   const renderCommonFields = (data, handleChange) => (
     <div className="space-y-6">
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#c9d1d9]">Name *</label>
-        <input
-          required
-          name="name"
-          value={data.name}
-          onChange={handleChange}
-          type="text"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-        />
-      </div>
-
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#c9d1d9]">
-          Email *
-        </label>
-        <input
-          required
-          name="email"
-          value={data.email}
-          onChange={handleChange}
-          type="email"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-        />
-      </div>
-
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#c9d1d9]">
-          Phone *
-        </label>
-        <input
-          required
-          name="phone"
-          value={data.phone}
-          onChange={handleChange}
-          type="tel"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <input
-          required
-          name="college"
-          value={data.college}
-          onChange={handleChange}
-          placeholder="College"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-        />
-        <input
-          required
-          name="year"
-          value={data.year}
-          onChange={handleChange}
-          placeholder="Year"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-        />
-      </div>
-
-      <input
-        name="github"
-        value={data.github}
-        onChange={handleChange}
-        placeholder="GitHub"
-        className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-      />
+      <input name="name" value={data.name} onChange={handleChange} placeholder="Name" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
+      <input name="email" value={data.email} onChange={handleChange} placeholder="Email" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
+      <input name="phone" value={data.phone} onChange={handleChange} placeholder="Phone" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
+      <input name="college" value={data.college} onChange={handleChange} placeholder="College" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
+      <input name="year" value={data.year} onChange={handleChange} placeholder="Year" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
+      <input name="github" value={data.github} onChange={handleChange} placeholder="GitHub" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
     </div>
   );
 
@@ -195,90 +135,38 @@ export default function Register() {
 
   return (
     <div className="w-full max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold text-white text-center mb-8">
-        Registration Form
-      </h1>
-
       <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-8">
-        <form>
+        <form onSubmit={handleSubmit}>
           <AnimatePresence initial={false} custom={direction} mode="wait">
             {isSubmitted ? (
-              <motion.div
-                key="success"
-                initial="enter"
-                animate="center"
-                exit="exit"
-                variants={variants}
-                className="text-center text-white py-20"
-              >
-                <h2 className="text-2xl font-bold">
-                  Registration Successful!
-                </h2>
+              <motion.div className="text-center text-white py-20">
+                <h2 className="text-2xl font-bold">Registration Successful!</h2>
               </motion.div>
             ) : (
-              <motion.div
-                key={step}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                variants={variants}
-                className="space-y-8"
-              >
+              <motion.div className="space-y-8">
                 {step === 0 && (
                   <>
-                    <input
-                      required
-                      value={formData.teamName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, teamName: e.target.value })
-                      }
-                      placeholder="Team Name"
-                      className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-                    />
-
-                    <select
-                      value={formData.teamSize}
-                      onChange={handleTeamSizeChange}
-                      className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-                    >
+                    <input value={formData.teamName} onChange={(e) => setFormData({ ...formData, teamName: e.target.value })} placeholder="Team Name" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
+                    <select value={formData.teamSize} onChange={handleTeamSizeChange} className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white">
                       <option value="1">Solo</option>
                       <option value="2">2 Members</option>
                       <option value="3">3 Members</option>
                       <option value="4">4 Members</option>
                     </select>
-
                     {renderCommonFields(formData.leader, handleLeaderChange)}
                   </>
                 )}
 
                 {step > 0 && step < totalSteps - 1 &&
-                  renderCommonFields(
-                    formData.members[step - 1],
-                    (e) => handleMemberChange(step - 1, e)
-                  )}
+                  renderCommonFields(formData.members[step - 1], (e) => handleMemberChange(step - 1, e))
+                }
 
                 <div className="flex gap-4">
-                  {step > 0 && (
-                    <button
-                      onClick={prevStep}
-                      className="flex-1 bg-gray-700 text-white py-3 rounded"
-                    >
-                      Back
-                    </button>
-                  )}
-
+                  {step > 0 && <button onClick={prevStep} type="button" className="flex-1 bg-gray-700 text-white py-3 rounded">Back</button>}
                   {step < totalSteps - 1 ? (
-                    <button
-                      onClick={nextStep}
-                      className="flex-1 bg-blue-600 text-white py-3 rounded"
-                    >
-                      Next
-                    </button>
+                    <button onClick={nextStep} type="button" className="flex-1 bg-blue-600 text-white py-3 rounded">Next</button>
                   ) : (
-                    <button
-                      onClick={handleSubmit}
-                      className="flex-1 bg-green-600 text-white py-3 rounded"
-                    >
+                    <button type="submit" className="flex-1 bg-green-600 text-white py-3 rounded">
                       Commit To Challenge
                     </button>
                   )}
