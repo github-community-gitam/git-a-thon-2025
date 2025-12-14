@@ -146,27 +146,60 @@ export default function Register() {
               <motion.div className="space-y-8">
                 {step === 0 && (
                   <>
-                    <input value={formData.teamName} onChange={(e) => setFormData({ ...formData, teamName: e.target.value })} placeholder="Team Name" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
-                    <select value={formData.teamSize} onChange={handleTeamSizeChange} className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white">
+                    <input
+                      value={formData.teamName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, teamName: e.target.value })
+                      }
+                      placeholder="Team Name"
+                      className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
+                    />
+
+                    <select
+                      value={formData.teamSize}
+                      onChange={handleTeamSizeChange}
+                      className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
+                    >
                       <option value="1">Solo</option>
                       <option value="2">2 Members</option>
                       <option value="3">3 Members</option>
                       <option value="4">4 Members</option>
                     </select>
+
                     {renderCommonFields(formData.leader, handleLeaderChange)}
                   </>
                 )}
 
                 {step > 0 && step < totalSteps - 1 &&
-                  renderCommonFields(formData.members[step - 1], (e) => handleMemberChange(step - 1, e))
-                }
+                  renderCommonFields(
+                    formData.members[step - 1],
+                    (e) => handleMemberChange(step - 1, e)
+                  )}
 
                 <div className="flex gap-4">
-                  {step > 0 && <button onClick={prevStep} type="button" className="flex-1 bg-gray-700 text-white py-3 rounded">Back</button>}
+                  {step > 0 && (
+                    <button
+                      type="button"
+                      onClick={prevStep}
+                      className="flex-1 bg-gray-700 text-white py-3 rounded"
+                    >
+                      Back
+                    </button>
+                  )}
+
                   {step < totalSteps - 1 ? (
-                    <button onClick={nextStep} type="button" className="flex-1 bg-blue-600 text-white py-3 rounded">Next</button>
+                    <button
+                      type="button"
+                      onClick={nextStep}
+                      className="flex-1 bg-blue-600 text-white py-3 rounded"
+                    >
+                      Next
+                    </button>
                   ) : (
-                    <button type="submit" className="flex-1 bg-green-600 text-white py-3 rounded">
+                    <button
+                      type="submit"
+                      className="flex-1 bg-green-600 text-white py-3 rounded"
+                    >
                       Commit To Challenge
                     </button>
                   )}
