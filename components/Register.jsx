@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-const API_URL = "/api/team/register";
+const API_URL = "https://git-a-thon-backend.onrender.com/api/team/register";
 
 export default function Register() {
   const [step, setStep] = useState(0);
