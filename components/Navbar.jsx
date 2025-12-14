@@ -7,6 +7,13 @@ export default function Navbar() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 z-50 w-full">
       <TargetCursor
@@ -15,28 +22,57 @@ export default function Navbar() {
         parallaxOn={true}
       />
 
-      <div className="flex w-full items-center justify-between px-8 py-4">
-        {/* LEFT LOGO */}
-        <div
-          className="flex flex-col items-center select-none cursor-target"
-          onClick={scrollToTop}
-        >
-          <img
-            src="/icons/EPOCH.svg"
-            alt="Epoch 4.0 Logo"
-            className="h-12 w-auto cursor-pointer"
-          />
-        </div>
+      {/* Glassmorphic nav bar */}
+      <div className="relative">
+        {/* Border gradient */}
+        <div className="absolute inset-0 h-px bottom-0"></div>
+        
+        <div className="">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div className="flex items-center justify-between h-20">
+              
+              {/* Logo */}
+              <button
+                onClick={scrollToTop}
+                className="flex items-center gap-3 cursor-target group"
+              >
+                <img
+                  src="/icons/EPOCH.svg"
+                  alt="Epoch 4.0"
+                  className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
+                />
+              </button>
 
-        {/* RIGHT NAV LINKS */}
-        <ul className="flex items-center gap-10">
-          <li
-            onClick={scrollToTop}
-            className="cursor-pointer cursor-target p-1 text-[15px] font-inter font-semibold text-[#E6EDF3] hover:text-white transition"
-          >
-            Home
-          </li>
-        </ul>
+              {/* Navigation Links */}
+              <ul className="hidden md:flex items-center gap-8">
+                <li>
+                  <button
+                    onClick={scrollToTop}
+                    className="cursor-target text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 p-1"
+                  >
+                    Home
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection('about')}
+                    className="cursor-target text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 p-1"
+                  >
+                    About
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollToSection('Register')}
+                    className="cursor-target px-4 py-2 rounded-lg bg-white/[0.08] hover:bg-white/[0.12] text-sm font-medium text-white border border-white/10 hover:border-white/20 transition-all duration-200 p-1"
+                  >
+                    Register
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   );

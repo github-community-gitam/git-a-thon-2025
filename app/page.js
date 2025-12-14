@@ -9,18 +9,26 @@ import DarkVeil from "@/components/background.jsx";
 
 export default function Home() {
   return (
-    <main className="text-white min-h-screen">
+    <main className="text-white min-h-screen relative">
       <Navbar />
-      {/* <DarkVeil /> */}
-
+      
       <Hero />
 
-      <div className="px-4 md:px-20 space-y-28 mt-20 pb-20">
-        <About />
-        <ComSpons />
-        <Register />
-        {/* <ProbStmts /> */}
+      {/* Content Container with consistent spacing */}
+      <div className="relative">
+        {/* Gradient separators for visual hierarchy */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="space-y-32 py-24">
+            <About />
+            <ComSpons />
+            <Register />
+            {/* <ProbStmts /> */}
+          </div>
+        </div>
       </div>
+      
       <Footer />
     </main>
   );

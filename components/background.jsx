@@ -153,14 +153,7 @@ export default function DarkVeil({
     resolutionScale,
   ]);
   return (
-    <div
-      className="
-      fixed inset-0
-      -z-10
-      pointer-events-none
-      overflow-hidden
-    "
-    >
+    <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
       <canvas ref={ref} className="w-full h-full block" />
     </div>
   );

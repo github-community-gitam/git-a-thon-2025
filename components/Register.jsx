@@ -157,8 +157,8 @@ export default function Register() {
   // Helper to render common fields
   const renderCommonFields = (data, handleChange, prefix = "") => (
     <div className="space-y-6">
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#c9d1d9]">
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-white/80">
           Name *
         </label>
         <input
@@ -168,12 +168,12 @@ export default function Register() {
           onChange={handleChange}
           type="text"
           placeholder="Full Name"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.07] transition-all"
         />
       </div>
 
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#c9d1d9]">
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-white/80">
           Email *
         </label>
         <input
@@ -183,12 +183,12 @@ export default function Register() {
           onChange={handleChange}
           type="email"
           placeholder="Gitam Mail"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.07] transition-all"
         />
       </div>
 
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#c9d1d9]">
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-white/80">
           Phone Number *
         </label>
         <input
@@ -198,13 +198,13 @@ export default function Register() {
           onChange={handleChange}
           type="tel"
           placeholder="+91 XXXXXXXXXX"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.07] transition-all"
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-3">
-          <label className="block text-sm font-medium text-[#c9d1d9]">
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-white/80">
             College Department & Branch *
           </label>
           <input
@@ -214,11 +214,11 @@ export default function Register() {
             onChange={handleChange}
             type="text"
             placeholder="e.g. CSE"
-            className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.07] transition-all"
           />
         </div>
-        <div className="space-y-3">
-          <label className="block text-sm font-medium text-[#c9d1d9]">
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-white/80">
             Year *
           </label>
           <input
@@ -228,13 +228,13 @@ export default function Register() {
             onChange={handleChange}
             type="text"
             placeholder="e.g. 3rd"
-            className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.07] transition-all"
           />
         </div>
       </div>
 
-      <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#c9d1d9]">
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-white/80">
           GitHub Profile Link
         </label>
         <input
@@ -243,7 +243,7 @@ export default function Register() {
           onChange={handleChange}
           type="url"
           placeholder="https://github.com/username"
-          className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.07] transition-all"
         />
       </div>
     </div>
@@ -252,36 +252,60 @@ export default function Register() {
   const totalSteps = formData.teamSize + 1;
 
   return (
-    <section id="Register" className="w-full max-w-3xl mx-auto scroll-mt-32">
-      <h1 className="text-2xl md:text-4xl font-bold text-white text-center mb-6 md:mb-10 font-space">
-        Registration Form
-      </h1>
-      <div
-        className={`w-full p-4 md:p-10 bg-[#161b22] rounded-xl border border-[#30363d] shadow-xl overflow-hidden relative ${
-          isSubmitted ? "" : "min-h-[600px] md:min-h-[800px]"
-        }`}
-      >
+    <section id="Register" className="w-full max-w-4xl mx-auto scroll-mt-32">
+      {/* Section Header */}
+      <div className="text-center mb-16">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
+          <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+          <span className="text-sm font-medium text-white/70">Join the Challenge</span>
+        </div>
+        
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+          <span className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
+            Team Registration
+          </span>
+        </h2>
+        
+        <p className="text-white/60 text-lg max-w-2xl mx-auto">
+          Assemble your dream team and register for GIT-A-THON 2025
+        </p>
+      </div>
+      
+      {/* Form Container */}
+      <div className="group relative">
+        {/* Glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl opacity-50"></div>
+        
+        <div
+          className={`relative w-full p-6 md:p-10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden ${
+            isSubmitted ? "" : "min-h-[600px] md:min-h-[800px]"
+          }`}
+        >
         {!isSubmitted && (
           <>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-2">
-              <h2 className="text-xl md:text-3xl font-bold text-white">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-2">
+              <h3 className="text-2xl md:text-3xl font-bold text-white">
                 {step === totalSteps - 1
                   ? "Review Details"
                   : step === 0
                   ? "Team Details & Leader"
                   : `Team Member ${step}`}
-              </h2>
-              <div className="text-[#8b949e] font-medium text-sm md:text-base">
-                Step {step + 1} of {totalSteps}
+              </h3>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10">
+                <span className="text-sm font-medium text-white/70">
+                  Step {step + 1} of {totalSteps}
+                </span>
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full h-2 bg-[#30363d] rounded-full mb-8">
+            <div className="w-full h-2 bg-white/5 rounded-full mb-10 overflow-hidden">
               <div
-                className="h-full bg-[#1f6feb] rounded-full transition-all duration-300 ease-in-out"
+                className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-500 ease-out relative"
                 style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
-              ></div>
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+              </div>
             </div>
           </>
         )}
@@ -300,35 +324,42 @@ export default function Register() {
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                 }}
-                className="flex flex-col items-center justify-center py-20 text-center space-y-6"
+                className="flex flex-col items-center justify-center py-20 text-center space-y-8"
               >
-                <div className="w-24 h-24 bg-[#238636] rounded-full flex items-center justify-center mb-4 shadow-lg shadow-[#238636]/20">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-12 w-12 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
+                <div className="relative">
+                  <div className="absolute inset-0 bg-green-500/20 rounded-full blur-2xl"></div>
+                  <div className="relative w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-2xl">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-12 w-12 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={3}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
                 </div>
-                <h2 className="text-3xl font-bold text-white">
-                  Registration Successful!
-                </h2>
-                <p className="text-[#8b949e] text-lg max-w-md">
-                  Your registration request has been sent successfully.
-                  <br />
-                  Check your email for further confirmation.
-                </p>
+                
+                <div className="space-y-3">
+                  <h2 className="text-4xl font-bold text-white">
+                    Registration Successful!
+                  </h2>
+                  <p className="text-white/60 text-lg max-w-md">
+                    Your registration request has been sent successfully.
+                    <br />
+                    Check your email for further confirmation.
+                  </p>
+                </div>
+                
                 <button
                   onClick={handleReset}
-                  className="mt-6 bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200 border border-[#30363d]"
+                  className="mt-6 bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-8 rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 hover:scale-105"
                 >
                   Submit Another Response
                 </button>
@@ -350,8 +381,8 @@ export default function Register() {
                 {step === 0 && (
                   <>
                     {/* Team Config */}
-                    <div className="space-y-3">
-                      <label className="block text-sm font-medium text-[#c9d1d9]">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-white/80">
                         Team Name *
                       </label>
                       <input
@@ -362,60 +393,62 @@ export default function Register() {
                         }
                         type="text"
                         placeholder="Enter Your Team Name"
-                        className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.07] transition-all"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="block text-sm font-medium text-[#c9d1d9]">
+                      <div className="space-y-2">
+                        <label className="block text-sm font-medium text-white/80">
                           Team Size *
                         </label>
-                        <div className="w-full bg-[#161b22] border border-[#30363d] rounded-md px-4 py-3 text-[#8b949e] cursor-not-allowed text-sm flex items-center">
+                        <div className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white/60 cursor-not-allowed text-sm flex items-center">
                           4 Members (Fixed)
                         </div>
                       </div>
 
-                      <div className="space-y-3">
-                        <label className="block text-sm font-medium text-[#c9d1d9]">
+                      <div className="space-y-2">
+                        <label className="block text-sm font-medium text-white/80">
                           Problem Statement
                         </label>
-                        <div className="w-full bg-[#161b22] border border-[#30363d] rounded-md px-4 py-3 text-[#8b949e] cursor-not-allowed text-sm flex items-center">
-                          Problem statements will be revealed during the
-                          hackathon!
+                        <div className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white/60 cursor-not-allowed text-sm flex items-center">
+                          Revealed during hackathon!
                         </div>
                       </div>
                     </div>
 
-                    <div className="border-t border-[#30363d] my-8 pt-6">
-                      <h3 className="text-xl font-semibold text-white mb-6">
-                        Team Leader Details
-                      </h3>
-                      {renderCommonFields(formData.leader, handleLeaderChange)}
+                    <div className="relative my-8">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-white/10"></div>
+                      </div>
+                      <div className="relative flex justify-center">
+                        <span className="px-4 bg-gradient-to-br from-white/[0.07] to-white/[0.02] text-white/70 text-sm font-medium">
+                          Team Leader Details
+                        </span>
+                      </div>
                     </div>
+
+                    {renderCommonFields(formData.leader, handleLeaderChange)}
                   </>
                 )}
 
                 {step > 0 && step < totalSteps - 1 && (
-                  <>
-                    <h3 className="text-xl font-semibold text-white mb-6">
-                      Member {step} Details
-                    </h3>
+                  <div className="space-y-6">
                     {renderCommonFields(formData.members[step - 1] || {}, (e) =>
                       handleMemberChange(step - 1, e)
                     )}
-                  </>
+                  </div>
                 )}
 
                 {step === totalSteps - 1 && (
                   <div className="space-y-6">
-                    <div className="bg-[#0d1117] p-6 rounded-lg border border-[#30363d] space-y-4">
-                      <h4 className="text-xl font-semibold text-[#1f6feb] border-b border-[#30363d] pb-2">
+                    <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 space-y-4">
+                      <h4 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent border-b border-white/10 pb-3">
                         Team Info
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         <div>
-                          <span className="block text-[#8b949e]">
+                          <span className="block text-white/50 text-xs mb-1">
                             Team Name
                           </span>
                           <span className="text-white font-medium">
@@ -423,7 +456,7 @@ export default function Register() {
                           </span>
                         </div>
                         <div>
-                          <span className="block text-[#8b949e]">
+                          <span className="block text-white/50 text-xs mb-1">
                             Team Size
                           </span>
                           <span className="text-white font-medium">
@@ -433,17 +466,17 @@ export default function Register() {
                       </div>
                     </div>
 
-                    <div className="bg-[#0d1117] p-6 rounded-lg border border-[#30363d] space-y-4">
-                      <h4 className="text-xl font-semibold text-[#1f6feb] border-b border-[#30363d] pb-2">
+                    <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 space-y-4">
+                      <h4 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent border-b border-white/10 pb-3">
                         Team Leader
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         {Object.entries(formData.leader).map(([key, value]) => (
                           <div key={key}>
-                            <span className="block text-[#8b949e] capitalize">
+                            <span className="block text-white/50 text-xs mb-1 capitalize">
                               {key}
                             </span>
-                            <span className="text-white font-medium">
+                            <span className="text-white font-medium break-all">
                               {value || "-"}
                             </span>
                           </div>
@@ -454,18 +487,18 @@ export default function Register() {
                     {formData.members.map((member, index) => (
                       <div
                         key={index}
-                        className="bg-[#0d1117] p-6 rounded-lg border border-[#30363d] space-y-4"
+                        className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 space-y-4"
                       >
-                        <h4 className="text-xl font-semibold text-[#1f6feb] border-b border-[#30363d] pb-2">
+                        <h4 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent border-b border-white/10 pb-3">
                           Member {index + 2}
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                           {Object.entries(member).map(([key, value]) => (
                             <div key={key}>
-                              <span className="block text-[#8b949e] capitalize">
+                              <span className="block text-white/50 text-xs mb-1 capitalize">
                                 {key}
                               </span>
-                              <span className="text-white font-medium">
+                              <span className="text-white font-medium break-all">
                                 {value || "-"}
                               </span>
                             </div>
@@ -481,7 +514,7 @@ export default function Register() {
                   {step > 0 && (
                     <button
                       onClick={prevStep}
-                      className="flex-1 bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] font-bold py-3 rounded-lg text-lg transition-colors duration-200 border border-[#30363d] cursor-target cursor-pointer"
+                      className="flex-1 bg-white/5 hover:bg-white/10 text-white font-semibold py-3 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 cursor-target cursor-pointer"
                     >
                       Back
                     </button>
@@ -490,7 +523,7 @@ export default function Register() {
                   {step < totalSteps - 1 ? (
                     <button
                       onClick={nextStep}
-                      className="flex-1 bg-[#1f6feb] hover:bg-[#238636] text-white font-bold py-3 rounded-lg text-lg transition-colors duration-200 shadow-md cursor-target cursor-pointer"
+                      className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 cursor-target cursor-pointer"
                     >
                       {step === totalSteps - 2
                         ? "Review Details"
@@ -499,7 +532,7 @@ export default function Register() {
                   ) : (
                     <button
                       onClick={handleSubmit}
-                      className="flex-1 bg-[#238636] hover:bg-[#2ea043] text-white font-bold py-3 rounded-lg text-lg transition-colors duration-200 shadow-md cursor-pointer cursor-target"
+                      className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/25 cursor-pointer cursor-target"
                     >
                       Commit To Challenge
                     </button>
@@ -509,6 +542,7 @@ export default function Register() {
             )}
           </AnimatePresence>
         </form>
+        </div>
       </div>
 
       {/* Error Popup */}
@@ -518,7 +552,7 @@ export default function Register() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4"
             onClick={() => setError(null)}
           >
             <motion.div
@@ -526,33 +560,38 @@ export default function Register() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#161b22] border border-[#30363d] p-6 rounded-xl shadow-2xl max-w-md w-full text-center space-y-6"
+              className="relative bg-gradient-to-br from-white/[0.1] to-white/[0.05] backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl max-w-md w-full text-center space-y-6"
             >
-              <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-red-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+              <div className="relative">
+                <div className="absolute inset-0 bg-red-500/20 rounded-full blur-2xl"></div>
+                <div className="relative w-20 h-20 bg-gradient-to-br from-red-500 to-rose-500 rounded-full flex items-center justify-center mx-auto shadow-2xl">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-10 w-10 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                     strokeWidth={2}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                  />
-                </svg>
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
+                  </svg>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
+              
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold text-white">
                   Please Check Your Inputs
                 </h3>
-                <p className="text-[#8b949e]">{error}</p>
+                <p className="text-white/70 text-base">{error}</p>
               </div>
+              
               <button
                 onClick={() => setError(null)}
-                className="w-full bg-[#21262d] hover:bg-[#30363d] text-white font-bold py-3 rounded-lg transition-colors border border-[#30363d]"
+                className="w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-3 rounded-xl transition-all duration-300 border border-white/20 hover:border-white/30 hover:scale-105"
               >
                 Okay
               </button>

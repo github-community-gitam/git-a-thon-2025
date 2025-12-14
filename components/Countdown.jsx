@@ -53,23 +53,33 @@ export default function Countdown({ targetDate }) {
   }, [targetDate]);
 
   return (
-    <div className="text-center">
-      <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 sm:mb-5 md:mb-6">
-        Hackathon starts in
-      </h3>
+    <div className="text-center space-y-6">
+      <div className="space-y-2">
+        <p className="text-sm font-medium text-white/50 uppercase tracking-wider">Event Begins In</p>
+        <div className="h-px w-24 mx-auto bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      </div>
 
-      <div className="flex justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-6">
+      <div className="grid grid-cols-4 gap-3 sm:gap-4 md:gap-6 max-w-4xl mx-auto">
         {Object.entries(timeLeft).map(([label, value]) => (
           <div
             key={label}
-            className="bg-gray-800 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 xl:w-40 xl:h-40 rounded-lg flex flex-col items-center justify-center"
+            className="group relative"
           >
-            <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-6xl font-bold text-blue-500">
-              {value}
-            </span>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold mt-1">
-              {label}
-            </p>
+            {/* Glow effect on hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            {/* Card */}
+            <div className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8 hover:border-white/20 transition-all duration-300 shadow-xl">
+              {/* Value */}
+              <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
+                {value}
+              </div>
+              
+              {/* Label */}
+              <div className="mt-2 text-xs sm:text-sm md:text-base font-medium text-white/60 uppercase tracking-wider">
+                {label}
+              </div>
+            </div>
           </div>
         ))}
       </div>
