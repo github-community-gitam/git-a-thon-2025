@@ -9,6 +9,7 @@ export default function Register() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [formData, setFormData] = useState({
     teamName: "",
     teamSize: 1,
@@ -99,8 +100,8 @@ export default function Register() {
       setDirection(1);
       setIsSubmitted(true);
     } catch (err) {
-      console.error("Request failed:", err);
-      alert("Failed to fetch. Please try again.");
+      console.error("Fetch error:", err);
+      alert("Failed to reach server");
     }
   };
 
@@ -120,95 +121,102 @@ export default function Register() {
     }
   };
 
-  const renderCommonFields = (data, handleChange) => (
-    <div className="space-y-6">
-      <input name="name" value={data.name} onChange={handleChange} placeholder="Name" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
-      <input name="email" value={data.email} onChange={handleChange} placeholder="Email" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
-      <input name="phone" value={data.phone} onChange={handleChange} placeholder="Phone" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
-      <input name="college" value={data.college} onChange={handleChange} placeholder="College" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
-      <input name="year" value={data.year} onChange={handleChange} placeholder="Year" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
-      <input name="github" value={data.github} onChange={handleChange} placeholder="GitHub" className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white" />
-    </div>
-  );
-
   const totalSteps = formData.teamSize + 1;
 
   return (
     <div className="w-full max-w-3xl mx-auto">
-      <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-8">
-        <form onSubmit={handleSubmit}>
-          <AnimatePresence initial={false} custom={direction} mode="wait">
-            {isSubmitted ? (
-              <motion.div className="text-center text-white py-20">
-                <h2 className="text-2xl font-bold">Registration Successful!</h2>
-              </motion.div>
-            ) : (
-              <motion.div className="space-y-8">
-                {step === 0 && (
-                  <>
-                    <input
-                      value={formData.teamName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, teamName: e.target.value })
-                      }
-                      placeholder="Team Name"
-                      className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-                    />
+      <form onSubmit={handleSubmit}>
+        <AnimatePresence initial={false} custom={direction} mode="wait">
+          {isSubmitted ? (
+            <motion.div
+              key="success"
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="text-white text-center py-20"
+            >
+              <h2 className="text-3xl font-bold">Registration Successful!</h2>
+            </motion.div>
+          ) : (
+            <motion.div
+              key={step}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="space-y-8"
+            >
+              {step === 0 && (
+                <>
+                  <input
+                    required
+                    placeholder="Team Name"
+                    value={formData.teamName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, teamName: e.target.value })
+                    }
+                    className="w-full p-3 bg-black text-white border"
+                  />
 
-                    <select
-                      value={formData.teamSize}
-                      onChange={handleTeamSizeChange}
-                      className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white"
-                    >
-                      <option value="1">Solo</option>
-                      <option value="2">2 Members</option>
-                      <option value="3">3 Members</option>
-                      <option value="4">4 Members</option>
-                    </select>
+                  <select
+                    value={formData.teamSize}
+                    onChange={handleTeamSizeChange}
+                    className="w-full p-3 bg-black text-white border"
+                  >
+                    <option value="1">Solo</option>
+                    <option value="2">2 Members</option>
+                    <option value="3">3 Members</option>
+                    <option value="4">4 Members</option>
+                  </select>
+                </>
+              )}
 
-                    {renderCommonFields(formData.leader, handleLeaderChange)}
-                  </>
+              {step > 0 && step < totalSteps - 1 && (
+                <input
+                  placeholder={`Member ${step} Name`}
+                  className="w-full p-3 bg-black text-white border"
+                  value={formData.members[step - 1]?.name || ""}
+                  onChange={(e) =>
+                    handleMemberChange(step - 1, {
+                      target: { name: "name", value: e.target.value },
+                    })
+                  }
+                />
+              )}
+
+              <div className="flex gap-4">
+                {step > 0 && (
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    className="flex-1 bg-gray-600 text-white p-3"
+                  >
+                    Back
+                  </button>
                 )}
 
-                {step > 0 && step < totalSteps - 1 &&
-                  renderCommonFields(
-                    formData.members[step - 1],
-                    (e) => handleMemberChange(step - 1, e)
-                  )}
-
-                <div className="flex gap-4">
-                  {step > 0 && (
-                    <button
-                      type="button"
-                      onClick={prevStep}
-                      className="flex-1 bg-gray-700 text-white py-3 rounded"
-                    >
-                      Back
-                    </button>
-                  )}
-
-                  {step < totalSteps - 1 ? (
-                    <button
-                      type="button"
-                      onClick={nextStep}
-                      className="flex-1 bg-blue-600 text-white py-3 rounded"
-                    >
-                      Next
-                    </button>
-                  ) : (
-                    <button
-                      type="submit"
-                      className="flex-1 bg-green-600 text-white py-3 rounded"
-                    >
-                      Commit To Challenge
-                    </button>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </form>
-      </div>
+                {step < totalSteps - 1 ? (
+                  <button
+                    type="button"
+                    onClick={nextStep}
+                    className="flex-1 bg-blue-600 text-white p-3"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="flex-1 bg-green-600 text-white p-3"
+                  >
+                    Commit To Challenge
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </form>
     </div>
   );
 }
