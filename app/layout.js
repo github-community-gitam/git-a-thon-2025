@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import DarkVeil from "@/components/background.jsx";
 
@@ -11,6 +11,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
+
 export const metadata = {
   title: "EPOCH 4.0 Hackathon",
   description: "Official website of EPOCH 4.0 Hackathon",
@@ -20,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.className} ${geistMono.variable} antialiased`}
+        className={`${geistSans.className} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
       >
         {/* Page wrapper */}
         <div className="relative min-h-screen overflow-hidden">

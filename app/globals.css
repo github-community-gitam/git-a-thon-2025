@@ -10,27 +10,27 @@
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
   --bg-tertiary: #111111;
-  
+
   --surface-primary: rgba(20, 20, 22, 0.6);
   --surface-elevated: rgba(30, 30, 32, 0.8);
   --surface-card: rgba(25, 25, 28, 0.95);
-  
+
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-default: rgba(255, 255, 255, 0.12);
   --border-strong: rgba(255, 255, 255, 0.18);
-  
+
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --text-tertiary: rgba(255, 255, 255, 0.5);
-  
+
   --accent-primary: #3b82f6;
   --accent-hover: #2563eb;
   --success: #10b981;
   --warning: #f59e0b;
-  
+
   /* Spacing Scale */
   --space-unit: 4px;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
@@ -57,7 +57,8 @@ body {
   margin: 0;
   padding: 0;
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -100,4 +101,8 @@ body {
 
 .animate-shimmer {
   animation: shimmer 2s infinite;
+}
+
+.font-space-grotesk {
+  font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
 }
