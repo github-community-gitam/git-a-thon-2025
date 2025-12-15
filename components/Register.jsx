@@ -523,7 +523,7 @@ export default function Register() {
                   {step < totalSteps - 1 ? (
                     <button
                       onClick={nextStep}
-                      className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 cursor-target cursor-pointer"
+                      className="flex-1 bg-gradient-to-r to-purple-500  hover:to-purple-600 text-white font-semibold py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 cursor-target cursor-pointer"
                     >
                       {step === totalSteps - 2
                         ? "Review Details"
