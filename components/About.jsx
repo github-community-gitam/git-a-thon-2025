@@ -92,7 +92,7 @@ export default function HackathonAboutSection() {
                   </div>
                   <div className="flex-1 pt-1">
                     <div className="font-semibold text-white mb-1">{item.label}</div>
-                    <div className="text-sm text-white/60">{item.value}</div>
+                    <div className="text-sm text-white/80">{item.value}</div>
                   </div>
                 </div>
               ))}
