@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+const API_URL = "https://git-a-thon-backend.onrender.com/api/team/register";
 
 export default function Register() {
   const [step, setStep] = useState(0);
@@ -120,12 +121,48 @@ export default function Register() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Submitted", formData);
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const payload = {
+    teamName: formData.teamName,
+    teamLeaderName: formData.leader.name,
+    email: formData.leader.email,
+    phoneNumber: formData.leader.phone,
+    college: formData.leader.college,
+    githubProfile: formData.leader.github,
+    teamSize: formData.teamSize,
+    problemPreference: formData.problemStatement || "Not selected",
+    members: formData.members,
+  };
+
+  try {
+    console.log(" Sending payload:", payload);
+
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    console.log("📥 Backend response:", data);
+
+    if (!res.ok) {
+      setError(data.message || "Registration failed");
+      return;
+    }
+
     setDirection(1);
     setIsSubmitted(true);
-  };
+  } catch (err) {
+    console.error(" Request failed:", err);
+    setError("Failed to connect to server. Please try again.");
+  }
+};
 
   const handleReset = () => {
     setStep(0);
