@@ -141,6 +141,7 @@ export default function Register() {
       email: formData.leader.email,
       phoneNumber: formData.leader.phone,
       college: formData.leader.college,
+      year: formData.leader.year,
       githubProfile: formData.leader.github,
       teamSize: formData.teamSize,
       problemPreference: formData.problemStatement || "Not selected",
