@@ -1,14 +1,16 @@
 "use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 const API_URL = "https://git-a-thon-backend.onrender.com/api/team/register";
 
 export default function Register() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // New Loading State
   const [error, setError] = useState(null);
+
   const [formData, setFormData] = useState({
     teamName: "",
     teamSize: 4,
@@ -97,7 +99,6 @@ export default function Register() {
 
   const nextStep = (e) => {
     e.preventDefault();
-
     // Validate before going to Review Step
     if (step === formData.teamSize - 1) {
       const validationError = validateForm();
@@ -106,7 +107,6 @@ export default function Register() {
         return;
       }
     }
-
     if (step < formData.teamSize) {
       setDirection(1);
       setStep(step + 1);
@@ -124,6 +124,11 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Prevent multiple submissions
+    if (isLoading) return;
+
+    setIsLoading(true); // Start Loading
+
     const payload = {
       teamName: formData.teamName,
       teamLeaderName: formData.leader.name,
@@ -137,8 +142,7 @@ export default function Register() {
     };
 
     try {
-      console.log(" Sending payload:", payload);
-
+      console.log("🚀 Sending payload:", payload);
       const res = await fetch(API_URL, {
         method: "POST",
         headers: {
@@ -148,19 +152,21 @@ export default function Register() {
       });
 
       const data = await res.json();
-
       console.log("📥 Backend response:", data);
 
       if (!res.ok) {
         setError(data.message || "Registration failed");
+        setIsLoading(false); // Stop loading on error
         return;
       }
 
       setDirection(1);
       setIsSubmitted(true);
+      setIsLoading(false); // Stop loading on success (view changes to success)
     } catch (err) {
-      console.error(" Request failed:", err);
+      console.error("❌ Request failed:", err);
       setError("Failed to connect to server. Please try again.");
+      setIsLoading(false); // Stop loading on error
     }
   };
 
@@ -168,6 +174,7 @@ export default function Register() {
     setStep(0);
     setDirection(0);
     setIsSubmitted(false);
+    setIsLoading(false);
     setFormData({
       teamName: "",
       teamSize: 4,
@@ -208,7 +215,6 @@ export default function Register() {
           className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
         />
       </div>
-
       <div className="space-y-3">
         <label className="block text-sm font-medium text-[#c9d1d9]">
           Email *
@@ -223,7 +229,6 @@ export default function Register() {
           className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
         />
       </div>
-
       <div className="space-y-3">
         <label className="block text-sm font-medium text-[#c9d1d9]">
           Phone Number *
@@ -238,7 +243,6 @@ export default function Register() {
           className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
         />
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-3">
           <label className="block text-sm font-medium text-[#c9d1d9]">
@@ -269,7 +273,6 @@ export default function Register() {
           />
         </div>
       </div>
-
       <div className="space-y-3">
         <label className="block text-sm font-medium text-[#c9d1d9]">
           GitHub Profile Link
@@ -293,12 +296,13 @@ export default function Register() {
       <h1 className="text-2xl md:text-4xl font-bold text-white text-center mb-6 md:mb-10 font-space">
         Registration Form
       </h1>
+
       <div
         className={`w-full p-4 md:p-10 bg-[#161b22] rounded-xl border border-[#30363d] shadow-xl overflow-hidden relative ${
-          isSubmitted ? "" : "min-h-[600px] md:min-h-[800px]"
+          isSubmitted || isLoading ? "" : "min-h-[600px] md:min-h-[800px]"
         }`}
       >
-        {!isSubmitted && (
+        {!isSubmitted && !isLoading && (
           <>
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-2">
               <h2 className="text-xl md:text-3xl font-bold text-white">
@@ -317,7 +321,9 @@ export default function Register() {
             <div className="w-full h-2 bg-[#30363d] rounded-full mb-8">
               <div
                 className="h-full bg-[#1f6feb] rounded-full transition-all duration-300 ease-in-out"
-                style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
+                style={{
+                  width: `${((step + 1) / totalSteps) * 100}%`,
+                }}
               ></div>
             </div>
           </>
@@ -325,7 +331,46 @@ export default function Register() {
 
         <form className="relative">
           <AnimatePresence initial={false} custom={direction} mode="wait">
-            {isSubmitted ? (
+            {isLoading ? (
+              // LOADING STATE
+              <motion.div
+                key="loading"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center py-20 text-center space-y-6"
+              >
+                <div className="relative w-20 h-20">
+                  <svg
+                    className="animate-spin h-full w-full text-[#1f6feb]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-bold text-white">
+                  Registering Team...
+                </h2>
+                <p className="text-[#8b949e] text-lg max-w-md">
+                  Please wait while we commit your code to the mainframe.
+                </p>
+              </motion.div>
+            ) : isSubmitted ? (
+              // SUCCESS STATE
               <motion.div
                 key="success"
                 custom={direction}
@@ -359,8 +404,7 @@ export default function Register() {
                   Registration Successful!
                 </h2>
                 <p className="text-[#8b949e] text-lg max-w-md">
-                  Your registration request has been sent successfully.
-                  <br />
+                  Your registration request has been sent successfully. <br />{" "}
                   Check your email for further confirmation.
                 </p>
                 <button
@@ -371,6 +415,7 @@ export default function Register() {
                 </button>
               </motion.div>
             ) : (
+              // FORM STEPS
               <motion.div
                 key={step}
                 custom={direction}
@@ -402,7 +447,6 @@ export default function Register() {
                         className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
                       />
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-3">
                         <label className="block text-sm font-medium text-[#c9d1d9]">
@@ -412,7 +456,6 @@ export default function Register() {
                           4 Members (Fixed)
                         </div>
                       </div>
-
                       <div className="space-y-3">
                         <label className="block text-sm font-medium text-[#c9d1d9]">
                           Problem Statement
@@ -438,8 +481,9 @@ export default function Register() {
                     <h3 className="text-xl font-semibold text-white mb-6">
                       Member {step} Details
                     </h3>
-                    {renderCommonFields(formData.members[step - 1] || {}, (e) =>
-                      handleMemberChange(step - 1, e)
+                    {renderCommonFields(
+                      formData.members[step - 1] || {},
+                      (e) => handleMemberChange(step - 1, e)
                     )}
                   </>
                 )}
@@ -518,7 +562,8 @@ export default function Register() {
                   {step > 0 && (
                     <button
                       onClick={prevStep}
-                      className="flex-1 bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] font-bold py-3 rounded-lg text-lg transition-colors duration-200 border border-[#30363d] cursor-target cursor-pointer"
+                      disabled={isLoading}
+                      className="flex-1 bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] font-bold py-3 rounded-lg text-lg transition-colors duration-200 border border-[#30363d] cursor-target cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       Back
                     </button>
@@ -536,9 +581,10 @@ export default function Register() {
                   ) : (
                     <button
                       onClick={handleSubmit}
-                      className="flex-1 bg-[#238636] hover:bg-[#2ea043] text-white font-bold py-3 rounded-lg text-lg transition-colors duration-200 shadow-md cursor-pointer cursor-target"
+                      disabled={isLoading}
+                      className="flex-1 bg-[#238636] hover:bg-[#2ea043] text-white font-bold py-3 rounded-lg text-lg transition-colors duration-200 shadow-md cursor-pointer cursor-target disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
-                      Commit To Challenge
+                      {isLoading ? "Committing..." : "Commit To Challenge"}
                     </button>
                   )}
                 </div>
@@ -556,7 +602,7 @@ export default function Register() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-            onClick={() => setError(null)}
+            onClick={() => !isLoading && setError(null)}
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
