@@ -51,35 +51,41 @@ export default function Register() {
   };
 
   const validateForm = () => {
-    // Check Team Name
     if (!formData.teamName.trim()) return "Team Name is required.";
 
-    // Validate Email Regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // Validate Phone Regex (simple 10 digit)
     const phoneRegex = /^\d{10}$/;
+    const githubRegex = /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_-]+\/?$/;
+    const yearRegex = /^(1|2|3|4|1st|2nd|3rd|4th)$/i;
 
-    // Check Leader
+    // Leader
     if (!formData.leader.name.trim()) return "Leader Name is required.";
     if (!emailRegex.test(formData.leader.email))
       return "Leader Email is invalid.";
     if (!phoneRegex.test(formData.leader.phone))
       return "Leader Phone must be 10 digits.";
     if (!formData.leader.college.trim()) return "Leader College is required.";
-    if (!formData.leader.year.trim()) return "Leader Year is required.";
+    if (!yearRegex.test(formData.leader.year))
+      return "Leader Year must be 1, 2, 3, 4 or 1st, 2nd, 3rd, 4th.";
+    if (!githubRegex.test(formData.leader.github))
+      return "Leader GitHub profile link is invalid.";
 
-    // Check Members
+    // Members
     for (let i = 0; i < formData.members.length; i++) {
       const m = formData.members[i];
+
       if (!m.name.trim()) return `Member ${i + 2} Name is required.`;
       if (!emailRegex.test(m.email)) return `Member ${i + 2} Email is invalid.`;
       if (!phoneRegex.test(m.phone))
         return `Member ${i + 2} Phone must be 10 digits.`;
       if (!m.college.trim()) return `Member ${i + 2} College is required.`;
-      if (!m.year.trim()) return `Member ${i + 2} Year is required.`;
+      if (!yearRegex.test(m.year))
+        return `Member ${i + 2} Year must be 1, 2, 3, 4 or 1st, 2nd, 3rd, 4th.`;
+      if (!githubRegex.test(m.github))
+        return `Member ${i + 2} GitHub profile link is invalid.`;
     }
 
-    return null; // No errors
+    return null;
   };
 
   const handleLeaderChange = (e) => {
@@ -275,7 +281,7 @@ export default function Register() {
       </div>
       <div className="space-y-3">
         <label className="block text-sm font-medium text-[#c9d1d9]">
-          GitHub Profile Link
+          GitHub Profile Link *
         </label>
         <input
           name="github"
@@ -481,9 +487,8 @@ export default function Register() {
                     <h3 className="text-xl font-semibold text-white mb-6">
                       Member {step} Details
                     </h3>
-                    {renderCommonFields(
-                      formData.members[step - 1] || {},
-                      (e) => handleMemberChange(step - 1, e)
+                    {renderCommonFields(formData.members[step - 1] || {}, (e) =>
+                      handleMemberChange(step - 1, e)
                     )}
                   </>
                 )}
