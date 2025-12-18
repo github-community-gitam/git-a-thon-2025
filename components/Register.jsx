@@ -300,355 +300,45 @@ export default function Register() {
 
   return (
     <section id="Register" className="w-full max-w-3xl mx-auto scroll-mt-32">
-      <h1 className="text-2xl md:text-4xl font-bold text-white text-center mb-6 md:mb-10 font-space">
-        Registration Form
-      </h1>
-
-      <div
-        className={`w-full p-4 md:p-10 bg-[#161b22] rounded-xl border border-[#30363d] shadow-xl overflow-hidden relative ${
-          isSubmitted || isLoading ? "" : "min-h-[600px] md:min-h-[800px]"
-        }`}
-      >
-        {!isSubmitted && !isLoading && (
-          <>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-2">
-              <h2 className="text-xl md:text-3xl font-bold text-white">
-                {step === totalSteps - 1
-                  ? "Review Details"
-                  : step === 0
-                  ? "Team Details & Leader"
-                  : `Team Member ${step}`}
-              </h2>
-              <div className="text-[#8b949e] font-medium text-sm md:text-base">
-                Step {step + 1} of {totalSteps}
-              </div>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="w-full h-2 bg-[#30363d] rounded-full mb-8">
-              <div
-                className="h-full bg-[#1f6feb] rounded-full transition-all duration-300 ease-in-out"
-                style={{
-                  width: `${((step + 1) / totalSteps) * 100}%`,
-                }}
-              ></div>
-            </div>
-          </>
-        )}
-
-        <form className="relative">
-          <AnimatePresence initial={false} custom={direction} mode="wait">
-            {isLoading ? (
-              // LOADING STATE
-              <motion.div
-                key="loading"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex flex-col items-center justify-center py-20 text-center space-y-6"
-              >
-                <div className="relative w-20 h-20">
-                  <svg
-                    className="animate-spin h-full w-full text-[#1f6feb]"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                </div>
-                <h2 className="text-2xl font-bold text-white">
-                  Registering Team...
-                </h2>
-                <p className="text-[#8b949e] text-lg max-w-md">
-                  Please wait while we commit your code to the mainframe.
-                </p>
-              </motion.div>
-            ) : isSubmitted ? (
-              // SUCCESS STATE
-              <motion.div
-                key="success"
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                className="flex flex-col items-center justify-center py-20 text-center space-y-6"
-              >
-                <div className="w-24 h-24 bg-[#238636] rounded-full flex items-center justify-center mb-4 shadow-lg shadow-[#238636]/20">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-12 w-12 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <h2 className="text-3xl font-bold text-white">
-                  Registration Successful!
-                </h2>
-                <p className="text-[#8b949e] text-lg max-w-md">
-                  Your registration request has been sent successfully. <br />{" "}
-                  Check your email for further confirmation.
-                </p>
-                <button
-                  onClick={handleReset}
-                  className="mt-6 bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200 border border-[#30363d]"
-                >
-                  Submit Another Response
-                </button>
-              </motion.div>
-            ) : (
-              // FORM STEPS
-              <motion.div
-                key={step}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                className="space-y-8 w-full"
-              >
-                {step === 0 && (
-                  <>
-                    {/* Team Config */}
-                    <div className="space-y-3">
-                      <label className="block text-sm font-medium text-[#c9d1d9]">
-                        Team Name *
-                      </label>
-                      <input
-                        required
-                        value={formData.teamName}
-                        onChange={(e) =>
-                          setFormData({ ...formData, teamName: e.target.value })
-                        }
-                        type="text"
-                        placeholder="Enter Your Team Name"
-                        className="w-full bg-[#0d1117] border border-[#30363d] rounded-md px-4 py-3 text-white placeholder-[#8b949e] focus:outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] transition-all"
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="block text-sm font-medium text-[#c9d1d9]">
-                          Team Size *
-                        </label>
-                        <div className="w-full bg-[#161b22] border border-[#30363d] rounded-md px-4 py-3 text-[#8b949e] cursor-not-allowed text-sm flex items-center">
-                          4 Members (Fixed)
-                        </div>
-                      </div>
-                      <div className="space-y-3">
-                        <label className="block text-sm font-medium text-[#c9d1d9]">
-                          Problem Statement
-                        </label>
-                        <div className="w-full bg-[#161b22] border border-[#30363d] rounded-md px-4 py-3 text-[#8b949e] cursor-not-allowed text-sm flex items-center">
-                          Problem statements will be revealed during the
-                          hackathon!
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="border-t border-[#30363d] my-8 pt-6">
-                      <h3 className="text-xl font-semibold text-white mb-6">
-                        Team Leader Details
-                      </h3>
-                      {renderCommonFields(formData.leader, handleLeaderChange)}
-                    </div>
-                  </>
-                )}
-
-                {step > 0 && step < totalSteps - 1 && (
-                  <>
-                    <h3 className="text-xl font-semibold text-white mb-6">
-                      Member {step} Details
-                    </h3>
-                    {renderCommonFields(formData.members[step - 1] || {}, (e) =>
-                      handleMemberChange(step - 1, e)
-                    )}
-                  </>
-                )}
-
-                {step === totalSteps - 1 && (
-                  <div className="space-y-6">
-                    <div className="bg-[#0d1117] p-6 rounded-lg border border-[#30363d] space-y-4">
-                      <h4 className="text-xl font-semibold text-[#1f6feb] border-b border-[#30363d] pb-2">
-                        Team Info
-                      </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <span className="block text-[#8b949e]">
-                            Team Name
-                          </span>
-                          <span className="text-white font-medium">
-                            {formData.teamName}
-                          </span>
-                        </div>
-                        <div>
-                          <span className="block text-[#8b949e]">
-                            Team Size
-                          </span>
-                          <span className="text-white font-medium">
-                            {formData.teamSize}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#0d1117] p-6 rounded-lg border border-[#30363d] space-y-4">
-                      <h4 className="text-xl font-semibold text-[#1f6feb] border-b border-[#30363d] pb-2">
-                        Team Leader
-                      </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        {Object.entries(formData.leader).map(([key, value]) => (
-                          <div key={key}>
-                            <span className="block text-[#8b949e] capitalize">
-                              {key}
-                            </span>
-                            <span className="text-white font-medium">
-                              {value || "-"}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {formData.members.map((member, index) => (
-                      <div
-                        key={index}
-                        className="bg-[#0d1117] p-6 rounded-lg border border-[#30363d] space-y-4"
-                      >
-                        <h4 className="text-xl font-semibold text-[#1f6feb] border-b border-[#30363d] pb-2">
-                          Member {index + 2}
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                          {Object.entries(member).map(([key, value]) => (
-                            <div key={key}>
-                              <span className="block text-[#8b949e] capitalize">
-                                {key}
-                              </span>
-                              <span className="text-white font-medium">
-                                {value || "-"}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Navigation Buttons */}
-                <div className="flex flex-col md:flex-row gap-4 pt-8">
-                  {step > 0 && (
-                    <button
-                      onClick={prevStep}
-                      disabled={isLoading}
-                      className="flex-1 bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] font-bold py-3 rounded-lg text-lg transition-colors duration-200 border border-[#30363d] cursor-target cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      Back
-                    </button>
-                  )}
-
-                  {step < totalSteps - 1 ? (
-                    <button
-                      onClick={nextStep}
-                      className="flex-1 bg-[#1f6feb] hover:bg-[#238636] text-white font-bold py-3 rounded-lg text-lg transition-colors duration-200 shadow-md cursor-target cursor-pointer"
-                    >
-                      {step === totalSteps - 2
-                        ? "Review Details"
-                        : "Next: Add Member"}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleSubmit}
-                      disabled={isLoading}
-                      className="flex-1 bg-[#238636] hover:bg-[#2ea043] text-white font-bold py-3 rounded-lg text-lg transition-colors duration-200 shadow-md cursor-pointer cursor-target disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                    >
-                      {isLoading ? "Committing..." : "Commit To Challenge"}
-                    </button>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </form>
-      </div>
-
-      {/* Error Popup */}
-      <AnimatePresence>
-        {error && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-            onClick={() => !isLoading && setError(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-[#161b22] border border-[#30363d] p-6 rounded-xl shadow-2xl max-w-md w-full text-center space-y-6"
+      <div className="w-full p-10 bg-[#161b22] rounded-xl border border-[#30363d] shadow-xl overflow-hidden">
+        <div className="flex flex-col items-center justify-center py-20 text-center space-y-6">
+          {/* BIG ICON */}
+          <div className="w-24 h-24 bg-[#238636] rounded-full flex items-center justify-center mb-4 shadow-lg shadow-[#238636]/20">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-12 w-12 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={3}
             >
-              <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-red-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Please Check Your Inputs
-                </h3>
-                <p className="text-[#8b949e]">{error}</p>
-              </div>
-              <button
-                onClick={() => setError(null)}
-                className="w-full bg-[#21262d] hover:bg-[#30363d] text-white font-bold py-3 rounded-lg transition-colors border border-[#30363d]"
-              >
-                Okay
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 8v4m0 4h.01"
+              />
+            </svg>
+          </div>
+          {/* TEXT */}
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
+            Registrations Closed
+          </h2>
+          <p className="text-[#8b949e] text-lg max-w-md">
+            Thank you for the overwhelming response! Team registrations are
+            currently closed.
+          </p>
+          <p className="text-[#8b949e] text-base max-w-md">
+            Please keep an eye on your email and our socials for further
+            updates.
+          </p>
+          {/* BADGE
+          <div className="pt-6">
+            <span className="inline-block bg-[#21262d] border border-[#30363d] text-[#c9d1d9] px-6 py-3 rounded-lg text-sm font-medium">
+              🚫 Registration Disabled
+            </span>
+          </div> */}
+        </div>
+      </div>
     </section>
   );
 }
