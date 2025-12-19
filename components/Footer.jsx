@@ -78,6 +78,11 @@ export default function Footer() {
           <p className="text-center text-white/50 text-sm">
             © 2025 GIT-A-THON · EPOCH 4.0 Hackathon. All rights reserved.
           </p>
+          <div className="flex items-center justify-center gap-1 mt-2">
+            <span className="text-white/30 text-xs text-center">
+              Hackathon Experience built by <span className="text-blue-400 font-medium hover:text-blue-300 transition-colors cursor-default"><a href="https://theananta.in">the ananta</a></span>
+            </span>
+          </div>
         </div>
       </div>
     </footer>

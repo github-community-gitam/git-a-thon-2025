@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 export default function CommunitiesSponsors() {
   const communities = [
     { src: "/icons/GitHub.svg", alt: "GitHub", color: "from-gray-500/20 to-gray-600/20" },
@@ -9,9 +11,11 @@ export default function CommunitiesSponsors() {
   ];
 
   const sponsors = [
-    { src: "/icons/CSE.svg", alt: "GITAM CSE", color: "from-purple-500/20 to-purple-600/20" },
-    { src: "/icons/the_ananta_logo.svg", alt: "The Ananta", color: "from-pink-500/20 to-pink-600/20" },
+    { src: "/icons/CSE.svg", alt: "GITAM CSE", color: "from-purple-500/20 to-purple-600/20", link: "https://www.gitam.edu/visakhapatnam/computer-science-and-engineering" },
+    { src: "/icons/the_ananta_logo.svg", alt: "The Ananta", color: "from-pink-500/20 to-pink-600/20", link: "https://theananta.in" },
   ];
+
+  const router = useRouter();
 
   return (
     <section className="relative">
@@ -23,7 +27,7 @@ export default function CommunitiesSponsors() {
             <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
             <span className="text-sm font-medium text-white/70">Our Partners</span>
           </div>
-          
+
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
             <span className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
               Powered by Communities
@@ -40,7 +44,7 @@ export default function CommunitiesSponsors() {
             >
               {/* Glow effect */}
               <div className={`absolute inset-0 bg-gradient-to-br ${community.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-              
+
               {/* Card */}
               <div className="relative bg-gradient-to-br from-white/[0.07] to-white/[0.02] backdrop-blur-xl rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-xl aspect-square flex items-center justify-center group-hover:scale-105">
                 <img
@@ -67,7 +71,7 @@ export default function CommunitiesSponsors() {
             <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse"></div>
             <span className="text-sm font-medium text-white/70">Supported By</span>
           </div>
-          
+
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
             <span className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
               Our Sponsors
@@ -80,11 +84,12 @@ export default function CommunitiesSponsors() {
           {sponsors.map((sponsor, i) => (
             <div
               key={i}
-              className="group relative"
+              onClick={() => router.push(sponsor.link)}
+              className="group relative cursor-pointer"
             >
               {/* Glow effect */}
               <div className={`absolute inset-0 bg-gradient-to-br ${sponsor.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-              
+
               {/* Card */}
               <div className="relative bg-gradient-to-br from-white/[0.07] to-white/[0.02] backdrop-blur-xl rounded-2xl p-10 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-xl w-56 h-56 flex items-center justify-center group-hover:scale-105">
                 <img

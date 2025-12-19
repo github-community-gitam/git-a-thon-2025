@@ -21,20 +21,24 @@ export const metadata = {
   description: "Official website of EPOCH 4.0 Hackathon",
 };
 
+import Providers from "@/components/Providers";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.className} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
       >
-        {/* Page wrapper */}
-        <div className="relative min-h-screen overflow-hidden">
-          {/* Background */}
-          <DarkVeil />
+        <Providers>
+          {/* Page wrapper */}
+          <div className="relative min-h-screen overflow-hidden">
+            {/* Background */}
+            <DarkVeil />
 
-          {/* Foreground content */}
-          <div className="relative z-10">{children}</div>
-        </div>
+            {/* Foreground content */}
+            <div className="relative z-10">{children}</div>
+          </div>
+        </Providers>
       </body>
     </html>
   );

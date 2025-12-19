@@ -1,269 +1,134 @@
-"use client"; // if this is a client component (Next 13+ app router)
 
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
+import Countdown from "@/components/Countdown";
+import { getProblemStatements } from "@/app/actions/team";
+import { motion } from "framer-motion";
 
 export default function ProbStmts() {
+  const [problems, setProblems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [config, setConfig] = useState(null);
 
-  const cards = [
-  {
-  id: 1,
-  title: "Smart Campus Issue Tracker",
-  overview:
-    "Build a comprehensive platform for students and staff to report, track, and resolve campus issues efficiently. The system should support multimedia uploads, location tagging, and automated routing to relevant departments.",
-  userPerspective:
-    "As a student or staff member, I want to easily report campus issues so they can be resolved quickly and transparently without needing to follow up manually.",
-  deliverables:
-    "A web and mobile application with reporting workflows, real-time tracking dashboards, and automated notification features.",
-  constraints:
-    "Must comply with campus data privacy policies and be accessible to all users, including differently abled individuals.",
-  evaluationCriteria:
-    "User adoption rate, average resolution time, stakeholder satisfaction levels, and security compliance.",
-},
-{
-  id: 2,
-  title: "AI Attendance Automation System",
-  overview:
-    "Create a smart attendance management solution using facial recognition and secure user verification. The system should work in varied lighting conditions and handle large class sizes efficiently.",
-  userPerspective:
-    "As a faculty member, I want attendance to be automated so that class time is not wasted and records are error-free.",
-  deliverables:
-    "AI-powered face detection module, secure attendance logging dashboard, attendance reports, and a teacher control panel.",
-  constraints:
-    "Must ensure data privacy, avoid racial or gender bias in recognition, and provide fallback manual attendance options.",
-  evaluationCriteria:
-    "Recognition accuracy, latency, robustness in real-world conditions, and usability feedback.",
-},
-{
-  id: 3,
-  title: "Campus Navigation & Accessibility App",
-  overview:
-    "Build a dynamic campus navigation system that supports real-time directions, department search, accessibility-friendly routes, and building-level guidance for new students and visitors.",
-  userPerspective:
-    "As a new student, I want to navigate campus buildings easily so I don't get lost or late to my classes.",
-  deliverables:
-    "Interactive campus map, indoor routing support, accessibility route options, and location-based notifications.",
-  constraints:
-    "Indoor mapping accuracy and battery efficiency must be optimized for all devices.",
-  evaluationCriteria:
-    "Route accuracy, app usability, accessibility compliance, and performance across devices.",
-},
-{
-  id: 4,
-  title: "Hostel Complaint & Maintenance Management",
-  overview:
-    "Design a centralized solution to handle hostel maintenance issues, track resolution timelines, and allow warden-level approvals. Include automated reminders for unresolved complaints.",
-  userPerspective:
-    "As a hostel resident, I want to report issues like water leakage or WiFi downtime and be updated on their resolution.",
-  deliverables:
-    "Complaint submission portal, warden dashboard, technician assignment system, and live status updates.",
-  constraints:
-    "Must ensure tenant identity verification and quick load times even on slow connections.",
-  evaluationCriteria:
-    "Average fix time, real-time responsiveness, and reduction in repeated complaints.",
-},
-{
-  id: 5,
-  title: "Library Book Recommendation & Availability System",
-  overview:
-    "Create a smart library assistant that recommends books based on user preferences, tracks real-time book availability, and offers waitlist features with notifications.",
-  userPerspective:
-    "As a student, I want personalized book suggestions and easy access to availability status so I can plan my study routines.",
-  deliverables:
-    "Recommendation engine, live availability tracker, waitlist & notification workflow, and admin management panel.",
-  constraints:
-    "Database reads must be optimized to prevent slowdowns during peak usage.",
-  evaluationCriteria:
-    "Recommendation accuracy, waitlist efficiency, and system reliability.",
-},
-{
-  id: 6,
-  title: "Smart Canteen Ordering & Queue Management",
-  overview:
-    "Develop a system that allows students to pre-order food, reduces queue times, and provides real-time order preparation updates to improve the campus dining experience.",
-  userPerspective:
-    "As a student, I want to order food quickly without waiting long in queues during short breaks.",
-  deliverables:
-    "Ordering interface, order status tracking, vendor dashboard, push notifications, and analytics for peak hours.",
-  constraints:
-    "Must handle heavy usage during lunch hours without crashing or slowing down.",
-  evaluationCriteria:
-    "Queue reduction percentage, vendor satisfaction, and order accuracy.",
-},
-  ];
+  useEffect(() => {
+    async function load() {
+      const res = await getProblemStatements();
+      if (res.success) {
+        setProblems(res.data);
+        setConfig(res.config);
+      } else {
+        setError(res.error || "Failed to load");
+      }
+      setLoading(false);
+    }
+    load();
+  }, []);
+
+  if (loading) return <div className="text-center py-20 text-white">Loading...</div>;
+  if (error) return <div className="text-center py-20 text-gray-500">{error}</div>;
+
+  const isLive = config?.isLive;
+
   return (
     <div>
       <Navbar />
-      <div className="py-25 px-4">
-        <h1 className="text-center text-white text-4xl font-bold mb-4">
-          All Problem Statements
+      <div className="py-25 px-4 min-h-screen">
+        <h1 className="text-center text-white text-4xl font-bold mb-4 mt-20">
+          Problem Statements
         </h1>
-        <h2 className="text-center text-lg mb-12 text-gray-300">
-          Choose a challenge that pushes your Creativity, Technical skills and
-          UX Thinking
-        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
-          {cards.map((card) => (
-            <div
-              key={card.id}
-              className="
-        bg-gray-800 p-6 rounded-lg border border-gray-700 text-center
-        h-full flex flex-col justify-between
-        min-h-[200px] sm:min-h-[220px] md:min-h-[240px] lg:min-h-[260px]
-      "
-            >
-              <h3 className="text-2xl font-semibold mb-4 text-white">
-                {card.title}
-              </h3>
+        {!isLive ? (
+          <div className="flex flex-col items-center justify-center space-y-8 mt-12">
+            <p className="text-center text-xl text-gray-300">
+              Challenges will be revealed in:
+            </p>
+            <Countdown targetDate={config?.probStmtsLiveTime} />
+          </div>
+        ) : (
+          <>
+            <h2 className="text-center text-lg mb-12 text-gray-300">
+              Choose a challenge that pushes your Creativity, Technical skills and UX Thinking
+            </h2>
 
-              <p className="text-gray-400 text-md mb-6 leading-relaxed max-h-24 overflow-hidden">
-                {card.overview}
-              </p>
-
-              <button
-                className="w-full py-2.5 px-4 bg-transparent border border-blue-500 text-blue-400 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 font-medium flex items-center justify-center gap-2"
-                onClick={() => setSelectedCard(card)}
-              >
-                View Details
-              </button>
-            </div>
-          ))}
-
-          {/* {selectedCard && (
-                <>
-                     <div className="fixed inset-0 bg-black/50 z-40" />
-
-                     <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-6">
-                        <header className="flex justify-between items-start">
-                            <h2 className="text-xl font-semibold">{selectedCard.title}</h2>
-                            <button onClick={() => setSelectedCard(null)} aria-label="Close details view">X</button>
-                        </header>
-
-                        <main className="mt-4">
-                            <p className="text-gray-700">Problem Overview: {selectedCard.overview}</p>
-                            <p className="text-gray-700">User Perspective: {selectedCard.userPerspective}</p>
-                            <p className="text-gray-700">Deliverables: {selectedCard.deliverables}</p>
-                            <p className="text-gray-700">Constraints: {selectedCard.constraints}</p>
-                            <p className="text-gray-700">Evaluation Criteria: {selectedCard.evaluationCriteria}</p>
-                        </main>
-                     </div>    
-                </>
-            )} */}
-
-          {selectedCard && (
-            <>
-              <div
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-                onClick={() => setSelectedCard(null)}
-              />
-
-              {/* Modal */}
-              <div
-                className="fixed left-1/2 top-1/2 z-50 w-[90%] max-w-3xl -translate-x-1/2 -translate-y-1/2 
-                bg-[#0f172a] text-white rounded-xl shadow-2xl border border-slate-700 p-8 max-h-[75vh] overflow-y-auto"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Header */}
-                <div className="flex justify-between items-start mb-6">
-                  <h2 className="text-2xl font-bold">{selectedCard.title}</h2>
-
-                  <button
-                    onClick={() => setSelectedCard(null)}
-                    className="text-gray-400 hover:text-white p-2 rounded-full hover:bg-slate-700 transition"
+            {problems.length === 0 ? (
+              <p className="text-center text-gray-500">No problem statements found.</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+                {problems.map((card) => (
+                  <div
+                    key={card.id}
+                    className="bg-gray-800 p-6 rounded-lg border border-gray-700 text-center h-full flex flex-col justify-between min-h-[200px]"
                   >
-                    ✕
-                  </button>
-                </div>
-
-                {/* Body */}
-                <div className="space-y-6 text-[15px] leading-relaxed">
-                  <div>
-                    <h3 className="text-lg font-medium mb-1 text-slate-300">
-                      Problem Overview
+                    <h3 className="text-2xl font-semibold mb-4 text-white">
+                      {card.title}
                     </h3>
-                    <p className="text-slate-400">{selectedCard.overview}</p>
-                  </div>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-1 text-slate-300">
-                      User&apos;s Perspective
-                    </h3>
-                    <p className="text-slate-400">
-                      {selectedCard.userPerspective}
+                    <p className="text-gray-400 text-md mb-6 leading-relaxed max-h-24 overflow-hidden">
+                      {card.description}
                     </p>
-                  </div>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2 text-slate-300">
-                      Expected Deliverables
-                    </h3>
-                    <ul className="list-disc list-inside text-slate-400 space-y-1">
-                      {String(selectedCard.deliverables)
-                        .split(",")
-                        .map((item, i) => (
-                          <li key={i}>{item.trim()}</li>
-                        ))}
-                    </ul>
-                  </div>
+                    <div className="flex justify-between items-center mb-4">
+                      <span className={`text-xs px-2 py-1 rounded-full ${card.isFull ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'}`}>
+                        {card.isFull ? "FULL" : "AVAILABLE"}
+                      </span>
+                      <span className="text-xs text-gray-400">
+                        {card._count?.teams || 0} / {card.maxCount || 5} Teams
+                      </span>
+                    </div>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2 text-slate-300">
-                      Constraints & Considerations
-                    </h3>
-                    <ul className="list-disc list-inside text-slate-400 space-y-1">
-                      {String(selectedCard.constraints)
-                        .split(",")
-                        .map((item, i) => (
-                          <li key={i}>{item.trim()}</li>
-                        ))}
-                    </ul>
-                  </div>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2 text-slate-300">
-                      Evaluation Criteria
-                    </h3>
-                    <ul className="list-disc list-inside text-slate-400 space-y-1">
-                      {String(selectedCard.evaluationCriteria)
-                        .split(",")
-                        .map((item, i) => (
-                          <li key={i}>{item.trim()}</li>
-                        ))}
-                    </ul>
+                    <button
+                      className="w-full py-2.5 px-4 bg-transparent border border-blue-500 text-blue-400 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 font-medium flex items-center justify-center gap-2"
+                      onClick={() => setSelectedCard(card)}
+                    >
+                      View Details
+                    </button>
                   </div>
-                </div>
+                ))}
+
+                {selectedCard && (
+                  <>
+                    <div
+                      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+                      onClick={() => setSelectedCard(null)}
+                    />
+
+                    <div
+                      className="fixed left-1/2 top-1/2 z-50 w-[90%] max-w-3xl -translate-x-1/2 -translate-y-1/2 
+                bg-[#0f172a] text-white rounded-xl shadow-2xl border border-slate-700 p-8 max-h-[75vh] overflow-y-auto"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="flex justify-between items-start mb-6">
+                        <h2 className="text-2xl font-bold">{selectedCard.title}</h2>
+
+                        <button
+                          onClick={() => setSelectedCard(null)}
+                          className="text-gray-400 hover:text-white p-2 rounded-full hover:bg-slate-700 transition"
+                        >
+                          ✕
+                        </button>
+                      </div>
+
+                      <div className="space-y-6 text-[15px] leading-relaxed">
+                        {/* Description is the main content for now as DB schema is simple */}
+                        <div>
+                          <h3 className="text-lg font-medium mb-1 text-slate-300">
+                            Problem Context
+                          </h3>
+                          <p className="text-slate-400">{selectedCard.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
-            </>
-          )}
-          
-        </div>
-
-        {/* See More Button */}
-        <div className="mt-10 flex justify-center">
-          <Link href="/probstmts" aria-label="See more problem statements">
-            <button className="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-600 text-slate-200 hover:bg-slate-800 hover:text-white rounded-lg transition-all duration-150">
-              See More
-              <svg
-                className="w-4 h-4 text-slate-200"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </Link>
-        </div>
+            )}
+          </>
+        )}
       </div>
     </div>
-    
   );
 }

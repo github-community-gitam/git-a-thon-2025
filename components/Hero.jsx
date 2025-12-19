@@ -3,16 +3,13 @@
 import React from "react";
 import Countdown from "./Countdown";
 import { Space_Grotesk } from "next/font/google";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export default function Hero() {
-  const handleRegisterClick = () => {
-    const registerSection = document.getElementById("Register");
-    if (registerSection) {
-      registerSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const { data: session } = useSession();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -59,11 +56,11 @@ export default function Hero() {
 
           {/* CTA Button */}
           <div className="pt-2">
-            <button
-              onClick={handleRegisterClick}
-              className="group relative inline-flex items-center gap-1 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 rounded-xl font-semibold text-base shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 cursor-target hover:scale-105"
+            <Link
+              href={session ? "/dashboard" : "/login"}
+              className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 rounded-xl font-semibold text-base shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer hover:scale-105"
             >
-              <span>Register Your Team</span>
+              <span>{session ? "Access Dashboard" : "Login"}</span>
               <svg
                 className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                 fill="none"
@@ -77,7 +74,7 @@ export default function Hero() {
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
       </div>

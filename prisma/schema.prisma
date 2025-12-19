@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  VOLUNTEER
+  JUDGE
+  ADMIN
+}
+
+enum CheckInStatus {
+  ABSENT
+  CHECKED_IN
+  CHECKED_OUT
+}
+
+model SystemConfig {
+  id                   Int      @id @default(autoincrement())
+  probStmtsLiveTime    DateTime @default(now()) // When problem statements become visible
+  maxTeamPerProblem    Int      @default(5)
+  currentRound         Int      @default(1)
+  showLeaderboard      Boolean  @default(true)
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password      String
+  name          String?
+  role          Role     @default(STUDENT)
+  
+  // Student specific details
+  phone         String?
+  college       String?
+  year          String?
+  github        String?
+  
+  // Check-in
+  status        CheckInStatus @default(ABSENT)
+  
+  // Relations
+  teamId        String?
+  team          Team?         @relation(fields: [teamId], references: [id])
+  checkInLogs   CheckInLog[]
+  judgedScores  Score[]       @relation("JudgeScores")
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+
+
+model CheckInLog {
+  id        String        @id @default(uuid())
+  status    CheckInStatus
+  
+  userId    String
+  user      User          @relation(fields: [userId], references: [id])
+  
+  timestamp DateTime      @default(now())
+}
+
+model Team {
+  id                 String   @id @default(uuid())
+  serialIndex        Int      @default(autoincrement()) @unique // Short Team ID
+  teamIdString       String?  @unique // From CSV
+  name               String?  // Custom team name
+  leaderId           String?
+  
+  // Assignments
+  problemStatementId String?
+  problemStatement   ProblemStatement? @relation(fields: [problemStatementId], references: [id])
+  
+  roomNumber         String?
+  
+  // Relations
+  members            User[]
+  scores             Score[]
+  
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model ProblemStatement {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  count       Int      @default(0)
+  // maxCount removed from here, using global SystemConfig constraint
+  
+  teams       Team[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Score {
+  id        String   @id @default(uuid())
+  
+  round1    Int?
+  round2    Int?
+  
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id])
+  
+  judgeId   String
+  judge     User     @relation("JudgeScores", fields: [judgeId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
