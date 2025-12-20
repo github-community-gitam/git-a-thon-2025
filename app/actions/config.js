@@ -7,6 +7,7 @@ export async function getSystemConfig() {
         const config = await prisma.systemConfig.findFirst();
         return { success: true, config };
     } catch (error) {
+        console.log(error);
         console.error("Error fetching system config:", error);
         return { success: false, error: "Failed to fetch config" };
     }

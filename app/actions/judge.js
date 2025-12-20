@@ -2,6 +2,8 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export async function getTeamsForJudging() {
     try {
@@ -19,7 +21,11 @@ export async function getTeamsForJudging() {
     }
 }
 
-export async function submitScore(teamId, judgeId, round, scoreValue) {
+export async function submitScore(teamId, round, scoreValue) {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) return { success: false, error: "Unauthorized" };
+    const judgeId = session.user.id;
+
     try {
         // Check if score exists for this team/judge? 
         // Logic: Usually one score per team per round? Or multiple judges?
