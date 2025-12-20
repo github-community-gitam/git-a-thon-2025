@@ -96,7 +96,7 @@ export async function selectProblemStatement(teamId, problemStatementId, userEma
             where: { id: problemStatementId },
             data: {
                 count: {
-                    inc: 1
+                    increment: 1
                 }
             }
         });

@@ -31,6 +31,8 @@ export default function AdminConfig() {
                 const istDate = new Date(date.getTime() + istOffset);
                 setLiveTimeIst(istDate.toISOString().slice(0, 16));
             }
+        }else{
+            console.log(res);
         }
     };
 
