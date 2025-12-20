@@ -15,7 +15,7 @@ async function main() {
         const csvData = fs.readFileSync(csvPath, 'utf8');
         const lines = csvData.split('\n').filter(l => l.trim()).slice(1);
 
-        const defaultPassword = await bcrypt.hash("12345678", 10);
+        const defaultPassword = "12345678";
         console.log(`Found ${lines.length} rows in CSV to process...`);
 
         let count = 0;
